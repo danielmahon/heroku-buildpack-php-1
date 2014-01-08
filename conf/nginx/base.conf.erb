@@ -31,7 +31,12 @@ http {
     include mime.types;
 
     server {
-        server_name sendy.mahonstudios.com;
+        <% if ENV.has_key? "SERVER_NAME" and ENV['SERVER_NAME'].to_s != "" %>
+        server_name <%= ENV['SERVER_NAME'] %>;
+        <% else %>
+        server_name localhost;
+        <% end %>
+        
         listen <%= ENV['PORT'] %>;
 
         include site.conf;
